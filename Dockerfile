@@ -1,4 +1,5 @@
-FROM debian/buster
+# build with `docker build . -t narfman0/docker-android-sdk`
+FROM openjdk:8-jdk
 
 # Set desired Android Linux SDK version
 ENV ANDROID_SDK_ZIP_URL https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
@@ -19,8 +20,3 @@ ADD $ANDROID_SDK_ZIP_URL $ANDROID_HOME
 RUN cd $ANDROID_HOME && \
     unzip *tools*linux*.zip && \
     rm *tools*linux*.zip
-
-# install build tools
-RUN echo "y" | sdkmanager "platform-tools" "platforms;android-27" "build-tools;27.0.3" && \
-    yes | sdkmanager --licenses && \
-    chmod -R 777 $ANDROID_HOME
